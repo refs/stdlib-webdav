@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	fs := webdav.NewMemFS()
+	//fs := webdav.NewMemFS()
+	fs := fs{
+		root: "/var/tmp/vfs",
+	}
 	ls := webdav.NewMemLS()
 	h := webdav.Handler{
 		FileSystem: fs,
