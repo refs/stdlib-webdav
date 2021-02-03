@@ -1,12 +1,19 @@
 ## Use it!
 
 1. create an empty folder: `curl -X MKCOL 'http://localhost:8082/test'`
-2. list the s&^t out of it: `url -X PROPFIND localhost:8082 -H "Depth: 1" | xmllint --format -`
+2. list the s&^t out of it: `curl -X PROPFIND localhost:8082 -H "Depth: 1" | xmllint --format -`
+3. get a single prop:
 
+```console
+curl -X PROPFIND http://localhost:8082/ --upload-file - -H "Depth: 1" <<end
+<?xml version="1.0"?>
+<a:propfind xmlns:a="DAV:">
+<a:prop><a:resourcetype/></a:prop>
+</a:propfind>
+end
+```
 
 ```xml
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <D:multistatus xmlns:D="DAV:">
    <D:response>
@@ -57,3 +64,7 @@
    </D:response>
 </D:multistatus>
 ```
+
+## TODO
+- add own namespace
+- add own props
