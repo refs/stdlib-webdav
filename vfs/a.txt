@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<D:propertyupdate xmlns:D="DAV:" xmlns:B="http://owncloud.org/ns">
+  <D:set>
+      <D:prop>
+          <B:message>"this is an example message"</B:message>
+      </D:prop>
+  </D:set>
+</D:propertyupdate>

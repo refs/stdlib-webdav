@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/xml"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -15,6 +16,35 @@ import (
 
 type fs struct {
 	root string // fs mount point
+}
+
+// TODO need our own package os.File
+// TODO the internal os.File needs to implement webdav.DeadPropsHolder
+
+type file struct {
+	os.File
+}
+
+func (f *file) DeadProps() (map[xml.Name]webdav.Property, error) {
+	var deadProps = make(map[xml.Name]webdav.Property)
+	ocNS := xml.Name{
+		Space: "http://owncloud.org/ns",
+		Local: "B",
+	}
+
+	messageP := webdav.Property{
+		XMLName: xml.Name{
+			Space: "http://owncloud.org/ns",
+			Local: "message",
+		},
+	}
+	deadProps[ocNS] = messageP
+	return deadProps, nil
+}
+
+// TODO continue here. Called in webdav.go:600
+func (f *file) Patch(proppatches []webdav.Proppatch) ([]webdav.Propstat, error) {
+	panic("implement me")
 }
 
 var defaultMountPath = filepath.Join("vfs")
